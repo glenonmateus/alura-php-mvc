@@ -1,0 +1,13 @@
+ARG PHP_VERSION=8.4
+ARG PHP_EXTENSIONS="pdo_mysql"
+
+FROM php:${PHP_VERSION}-apache
+
+ARG PHP_VERSION
+ARG PHP_EXTENSIONS
+
+RUN <<EOT
+set -xe
+docker-php-ext-install \
+  ${PHP_EXTENSIONS}
+EOT

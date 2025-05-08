@@ -1,0 +1,30 @@
+name: alura-php-mvc
+
+services:
+  web:
+    build:
+      context: .
+    volumes:
+      - type: bind
+        source: .
+        target: /var/www/html
+    ports:
+      - name: web
+        target: 80
+        published: "8080"
+        protocol: tcp
+        app_protocol: http
+        mode: host
+  database:
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: aluraplay
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - type: volume
+        source: mysql_data
+        target: /var/lib/mysql
+
+volumes:
+  mysql_data:
