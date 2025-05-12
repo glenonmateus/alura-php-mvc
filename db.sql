@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS aluraplay.videos;
+
+CREATE TABLE IF NOT EXISTS aluraplay.videos (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    url VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL
+);
