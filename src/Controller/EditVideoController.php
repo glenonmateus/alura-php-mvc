@@ -7,7 +7,9 @@ use Alura\Mvc\Repository\VideoRepository;
 
 class EditVideoController implements Controller
 {
-    public function __construct(private VideoRepository $videoRepository) {}
+    public function __construct(private VideoRepository $videoRepository)
+    {
+    }
     public function process(): void
     {
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
@@ -25,7 +27,7 @@ class EditVideoController implements Controller
             header("Location: /?sucesso=0");
             return;
         }
-        $video = new Video(url: $url, titulo: $titulo);
+        $video = new Video(url: $url, title: $titulo);
         $video->setId($id);
         $sucesso = $this->videoRepository->update($video);
         if ($sucesso === false) {
