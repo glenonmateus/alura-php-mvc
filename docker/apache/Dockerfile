@@ -1,6 +1,6 @@
 ARG PHP_VERSION=8.4
 ARG PHP_EXTENSIONS="pdo_mysql"
-ARG APACHE_MODS="headers rewrite actions"
+ARG APACHE_MODS="alias headers rewrite actions proxy_fcgi"
 
 FROM php:${PHP_VERSION}-apache
 
@@ -21,6 +21,11 @@ DirectoryIndex index.php index.html
     AllowOverride All
     Require all granted
 </Directory>
+<IfModule proxy_fcgi_module>
+  <FilesMatch "\.php$">
+      SetHandler "proxy:fcgi://php-fpm:9000"
+  </FilesMatch>
+</IfModule>
 </VirtualHost>
 EOF
 a2dissite 000-default
