@@ -8,6 +8,7 @@ class Video
 {
     public readonly int $id;
     public readonly string $url;
+    private ?string $_image_path = null;
 
     public function __construct(
         string $url,
@@ -27,5 +28,15 @@ class Video
             throw new InvalidArgumentException();
         }
         $this->url = $url;
+    }
+
+    public function setFilePath(string $filePath): void
+    {
+        $this->_image_path = $filePath;
+    }
+
+    public function getFilePath(): ?string
+    {
+        return $this->_image_path;
     }
 }

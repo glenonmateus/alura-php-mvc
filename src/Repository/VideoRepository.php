@@ -13,10 +13,11 @@ class VideoRepository
 
     public function add(Video $video): bool
     {
-        $sql = "INSERT INTO videos (url, title) VALUES (:url, :title)";
+        $sql = "INSERT INTO videos (url, title, image_path) VALUES (:url, :title, :image_path)";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(":url", $video->url);
         $statement->bindValue(":title", $video->title);
+        $statement->bindValue(":image_path", $video->getFilePath());
         return $statement->execute();
     }
 
@@ -30,10 +31,11 @@ class VideoRepository
 
     public function update(Video $video): bool
     {
-        $sql = "UPDATE videos SET url = :url, title = :title WHERE id = :id";
+        $sql = "UPDATE videos SET url = :url, title = :title, image_path = :image_path WHERE id = :id";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(":url", $video->url);
         $statement->bindValue(":title", $video->title);
+        $statement->bindValue(":image_path", $video->getFilePath());
         $statement->bindValue(":id", $video->id, PDO::PARAM_INT);
         return $statement->execute();
     }
