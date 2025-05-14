@@ -30,12 +30,13 @@ class LoginController implements Controller
                 hash: $user->password
             )
             ) {
-                header("Location: /?sucesso=0");
+                $_SESSION['logado'] = true;
+                header("Location: /");
             } else {
-                header("Location: /login");
+                header("Location: /login?sucesso=0");
             }
         } catch (Exception $e) {
-            header("Location: /login");
+            header("Location: /login?sucesso=0");
         }
     }
 }
