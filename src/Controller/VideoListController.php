@@ -12,6 +12,6 @@ class VideoListController implements Controller
     public function process(): void
     {
         $videoList = $this->videoRepository->all();
-        require_once __DIR__ . "/../../views/video-list.php";
+        include_once __DIR__ . "/../../views/video-list.php";
     }
 }
