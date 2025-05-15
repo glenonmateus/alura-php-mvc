@@ -14,7 +14,7 @@ class Video
         string $url,
         public readonly string $title
     ) {
-        $this->setUrl($url);
+        $this->_setUrl($url);
     }
 
     public function setId(int $id): void
@@ -22,7 +22,7 @@ class Video
         $this->id = $id;
     }
 
-    private function setUrl(string $url): void
+    private function _setUrl(string $url): void
     {
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             throw new InvalidArgumentException();
