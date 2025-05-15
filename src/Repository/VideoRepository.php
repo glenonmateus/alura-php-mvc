@@ -31,11 +31,17 @@ class VideoRepository
 
     public function update(Video $video): bool
     {
-        $sql = "UPDATE videos SET url = :url, title = :title, image_path = :image_path WHERE id = :id";
+        $updateImageSql = '';
+        if ($video->getFilePath() !== null) {
+            $updateImageSql = ", image_path = :image_path";
+        };
+        $sql = "UPDATE videos SET url = :url, title = :title $updateImageSql WHERE id = :id";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(":url", $video->url);
         $statement->bindValue(":title", $video->title);
-        $statement->bindValue(":image_path", $video->getFilePath());
+        if ($video->getFilePath() !== null) {
+            $statement->bindValue(":image_path", $video->getFilePath());
+        };
         $statement->bindValue(":id", $video->id, PDO::PARAM_INT);
         return $statement->execute();
     }
@@ -59,12 +65,15 @@ class VideoRepository
     }
 
     /**
-     * @param array<int,mixed> $data
+     * @param array<Video> $data
      */
     private function _hydrate(array $data): Video
     {
         $video = new Video($data["url"], $data["title"]);
         $video->setId((int) $data["id"]);
+        if ($data['image_path'] !== null) {
+            $video->setFilePath($data['image_path']);
+        };
         return $video;
     }
 }
