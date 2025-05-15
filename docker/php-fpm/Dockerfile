@@ -8,8 +8,7 @@ ARG PHP_EXTENSIONS
 RUN <<EOT
 set -xe
 mv "${PHP_INI_DIR}/php.ini-development" "${PHP_INI_DIR}/php.ini"
-cat <<EOF > "${PHP_INI_DIR}/conf.d/session.ini"
-[Session]
+cat <<EOF > "${PHP_INI_DIR}/conf.d/10-session.ini"
 session.cookie_httponly=1
 session.cookie_secure=1
 session.cookie_samesite=Strict
