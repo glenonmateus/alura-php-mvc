@@ -5,6 +5,14 @@ require_once __DIR__ . "/header.php";
 <ul class="videos__container" alt="videos alura">
   <?php foreach ($videoList as $video): ?>
   <li class="videos__item">
+      <?php if ($video->getFilePath() !== null): ?>
+      <a href="<?= $video->url ?>">
+        <img
+          src="/img/uploads/<?php $video->getFilePath(); ?>"
+          alt=""
+          style="width: 100%;" />
+      </a>
+      <?php else: ?>
       <iframe
         width="100%"
         height="72%"
@@ -12,9 +20,8 @@ require_once __DIR__ . "/header.php";
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      >
-      </iframe>
+        allowfullscreen></iframe>
+      <?php endif; ?>
       <div class="descricao-video">
           <h3><?= $video->title ?></h3>
           <div class="acoes-video">
