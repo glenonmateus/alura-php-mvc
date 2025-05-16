@@ -33,10 +33,10 @@ class LoginController implements Controller
                 $_SESSION['logado'] = true;
                 header("Location: /");
             } else {
-                header("Location: /login?sucesso=0");
+                header("Location: /login?success=0");
             }
         } catch (Exception $e) {
-            header("Location: /login?sucesso=0");
+            header("Location: /login?success=0");
         }
     }
 }
